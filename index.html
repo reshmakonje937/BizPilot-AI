@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizPilot AI | One-Person Back Office</title>
+<style>
+:root{--navy:#111827;--blue:#4f46e5;--purple:#7c3aed;--bg:#f5f6fb;--card:#fff;--muted:#6b7280;--line:#e5e7eb;--green:#059669;--red:#dc2626}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:#182033}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:650}button.secondary{background:#eef0ff;color:#3730a3}button.danger{background:#fee2e2;color:#991b1b}button.ghost{background:transparent;color:#374151;border:1px solid var(--line)}
+.app{display:flex;min-height:100vh}.sidebar{width:245px;background:#111827;color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:22px}.brand{font-size:21px;font-weight:850;letter-spacing:-.7px;padding:0 10px}.brand span{color:#a5b4fc}.tag{font-size:11px;color:#9ca3af;padding:4px 10px}.nav{display:grid;gap:6px}.nav button{background:transparent;color:#cbd5e1;text-align:left;font-weight:550;padding:12px;border-radius:9px}.nav button.active,.nav button:hover{background:#293449;color:white}.sidebar-note{margin-top:auto;border:1px solid #374151;border-radius:12px;padding:13px;color:#cbd5e1;font-size:12px;line-height:1.5}.main{flex:1;min-width:0}.topbar{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:3}.topbar small{color:var(--muted)}.content{padding:28px 30px;max-width:1450px;margin:auto}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}.pagehead h1{margin:0;font-size:26px;letter-spacing:-.7px}.pagehead p{margin:6px 0 0;color:var(--muted);font-size:14px}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:19px;box-shadow:0 2px 8px #10182808}.metric-label{color:var(--muted);font-size:13px}.metric{font-size:27px;font-weight:800;margin:10px 0 4px;letter-spacing:-.7px}.metric-sub{font-size:12px;color:var(--muted)}.grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}.card h3{margin:0 0 16px;font-size:16px}.bar-chart{height:190px;display:flex;align-items:end;gap:12px;padding:10px 5px 0;border-bottom:1px solid var(--line)}.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:100%;gap:7px}.bar{width:min(32px,70%);background:linear-gradient(180deg,#818cf8,#4f46e5);border-radius:7px 7px 2px 2px;min-height:4px}.bar-col small{font-size:11px;color:var(--muted)}.activity{display:grid;gap:12px}.activity-row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #f0f1f5;padding-bottom:11px;font-size:13px}.activity-row:last-child{border:0;padding:0}.muted{color:var(--muted)}.positive{color:var(--green);font-weight:700}.negative{color:var(--red);font-weight:700}.table-wrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:14px}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.toolbar input{max-width:280px}.field, input,select,textarea{width:100%;border:1px solid #d9deea;border-radius:9px;padding:10px 11px;background:#fff;color:#182033;outline:none}.field:focus,input:focus,select:focus,textarea:focus{border-color:#818cf8;box-shadow:0 0 0 3px #818cf822}table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:13px 15px;border-bottom:1px solid #edf0f5;font-size:13px}th{color:#6b7280;background:#fafbfe;font-weight:650}tr:last-child td{border:0}.pill{display:inline-block;padding:4px 8px;border-radius:99px;font-size:11px;font-weight:700}.paid{background:#d1fae5;color:#065f46}.pending{background:#fef3c7;color:#92400e}.overdue{background:#fee2e2;color:#991b1b}.modal{position:fixed;inset:0;background:#0f172a88;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal.show{display:flex}.modalbox{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:22px}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.modalhead h2{margin:0;font-size:19px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formgroup{display:grid;gap:6px;margin-bottom:12px}.formgroup label{font-size:12px;font-weight:700;color:#4b5563}.formgroup.full{grid-column:1/-1}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.empty{text-align:center;padding:35px;color:var(--muted)}.chatbox{height:330px;overflow:auto;background:#f8f9ff;border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}.bubble{padding:10px 12px;border-radius:12px;max-width:85%;font-size:13px;line-height:1.5}.bot{background:#fff;border:1px solid var(--line);align-self:flex-start}.user{background:#4f46e5;color:#fff;align-self:flex-end}.chatinput{display:flex;gap:8px}.chatinput input{flex:1}.notice{background:#eef2ff;color:#3730a3;border-radius:10px;padding:12px;font-size:13px;line-height:1.5;margin-bottom:16px}.hidden{display:none!important}.mobile-menu{display:none}
+@media(max-width:900px){.sidebar{width:205px}.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:650px){.app{display:block}.sidebar{width:100%;padding:13px;gap:10px}.brand{padding:0}.tag,.sidebar-note{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 11px;font-size:12px}.topbar{height:55px;padding:0 16px}.content{padding:20px 14px}.cards{gap:9px}.card{padding:14px}.metric{font-size:22px}.pagehead{align-items:flex-start;flex-direction:column}.formgrid{grid-template-columns:1fr}.formgroup.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div><div class="brand">BizPilot <span>AI</span></div><div class="tag">THE ONE-PERSON BACK OFFICE</div></div>
+  <nav class="nav" id="nav">
+    <button class="active" data-page="dashboard">▦ &nbsp; Dashboard</button>
+    <button data-page="customers">♙ &nbsp; Customers</button>
+    <button data-page="invoices">▤ &nbsp; Invoices</button>
+    <button data-page="payments">₹ &nbsp; Payments</button>
+    <button data-page="expenses">↘ &nbsp; Expenses</button>
+    <button data-page="assistant">✧ &nbsp; AI Assistant</button>
+    <button data-page="forecast">⌁ &nbsp; Cash Flow</button>
+  </nav>
+  <div class="sidebar-note"><b>Demo workspace</b><br>Sample data is stored in this browser. Connect a backend before using with real customer information.</div>
+</aside>
+<main class="main">
+<header class="topbar"><div><b id="topTitle">Dashboard</b><br><small>Welcome back to your business workspace</small></div><div style="display:flex;align-items:center;gap:14px"><small id="today"></small><button class="ghost" type="button" onclick="sessionStorage.removeItem('bizpilot_demo_session');window.location.href='login.html'">Sign out</button></div></header>
+<div class="content" id="view"></div>
+</main>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h2 id="modalTitle">Add</h2><button class="ghost" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
+<script>
+// Demo-only login gate. This does not provide secure server-side authentication.
+if (sessionStorage.getItem('bizpilot_demo_session') !== 'active') {
+  window.location.replace('login.html');
+}
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(Number(n)||0);
+const today=()=>new Date().toISOString().slice(0,10);
+const uid=()=>Math.random().toString(36).slice(2,9).toUpperCase();
+const seed={
+ customers:[
+  {id:'C101',name:'Ananya Rao',phone:'9876543210',email:'ananya@example.com',business:'Rao Boutique'},
+  {id:'C102',name:'Rahul Shetty',phone:'9876501234',email:'rahul@example.com',business:'RS Foods'},
+  {id:'C103',name:'Meera Nair',phone:'9988776655',email:'meera@example.com',business:'Meera Designs'},
+  {id:'C104',name:'Arjun Kumar',phone:'9123456780',email:'arjun@example.com',business:'AK Services'},
+  {id:'C105',name:'Priya Das',phone:'9090909090',email:'priya@example.com',business:'PD Studio'},
+  {id:'C106',name:'Kiran P',phone:'9811111111',email:'Kiran Traders'}
+ ],
+ invoices:[
+  {id:'INV-1001',customer:'Ananya Rao',date:'2026-11-02',due:'2026-11-20',items:'Website design',amount:18000,status:'Paid'},
+  {id:'INV-1002',customer:'Rahul Shetty',date:'2026-11-05',due:'2026-11-25',items:'Monthly service',amount:12500,status:'Pending'},
+  {id:'INV-1003',customer:'Meera Nair',date:'2026-10-20',due:'2026-11-05',items:'Product photography',amount:8500,status:'Overdue'},
+  {id:'INV-1004',customer:'Arjun Kumar',date:'2026-11-10',due:'2026-11-28',items:'Consulting',amount:22000,status:'Pending'},
+  {id:'INV-1005',customer:'Priya Das',date:'2026-11-12',due:'2026-11-18',items:'Brand package',amount:15000,status:'Paid'}
+ ],
+ expenses:[
+  {id:'EX-101',date:'2026-11-01',category:'Rent',description:'Workspace rent',amount:8000},
+  {id:'EX-102',date:'2026-11-06',category:'Software',description:'Software subscriptions',amount:1800},
+  {id:'EX-103',date:'2026-11-12',category:'Travel',description:'Client visit',amount:1200},
+  {id:'EX-104',date:'2026-11-15',category:'Supplies',description:'Office supplies',amount:2400}
+ ],
+ payments:[{id:'PAY-101',invoice:'INV-1001',customer:'Ananya Rao',date:'2026-11-15',amount:18000},{id:'PAY-102',invoice:'INV-1005',customer:'Priya Das',date:'2026-11-17',amount:15000}]
+};
+let db=loadDB(),page='dashboard';
+function loadDB(){try{let x=JSON.parse(localStorage.getItem('bizpilot_db'));return x||structuredClone(seed)}catch(e){return JSON.parse(JSON.stringify(seed))}}
+function save(){localStorage.setItem('bizpilot_db',JSON.stringify(db))}
+function sum(a){return a.reduce((s,x)=>s+Number(x.amount||0),0)}
+function paid(){return sum(db.invoices.filter(x=>x.status==='Paid'))}
+function pending(){return sum(db.invoices.filter(x=>x.status!=='Paid'))}
+function expenses(){return sum(db.expenses)}
+function go(p){page=p;document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));render()}
+document.getElementById('nav').addEventListener('click',e=>{let b=e.target.closest('button[data-page]');if(b)go(b.dataset.page)});
+document.getElementById('today').textContent=new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+function head(title,desc,button=''){return `<div class="pagehead"><div><h1>${title}</h1><p>${desc}</p></div>${button}</div>`}
+function render(){document.getElementById('topTitle').textContent=({dashboard:'Dashboard',customers:'Customers',invoices:'Invoices',payments:'Payments',expenses:'Expenses',assistant:'AI Business Assistant',forecast:'Cash Flow Forecast'})[page];let v=document.getElementById('view');v.innerHTML=({dashboard:dashboard,customers:customers,invoices:invoices,payments:payments,expenses:expensePage,assistant:assistant,forecast:forecast})[page]()}
+function dashboard(){
+let revenue=paid(),exp=expenses(),net=revenue-exp,unpaid=pending();
+let months=['Jun','Jul','Aug','Sep','Oct','Nov'],vals=[22000,28000,24500,36000,41000,revenue||33000],max=Math.max(...vals,1);
+return `${head('Good day 👋','Here is what is happening with your business today.','<button onclick="openInvoice()">＋ Create invoice</button>')}
+<div class="cards">
+<div class="card"><div class="metric-label">Collected revenue</div><div class="metric">${money(revenue)}</div><div class="metric-sub">From paid invoices</div></div>
+<div class="card"><div class="metric-label">Outstanding</div><div class="metric">${money(unpaid)}</div><div class="metric-sub">Pending and overdue invoices</div></div>
+<div class="card"><div class="metric-label">Total expenses</div><div class="metric">${money(exp)}</div><div class="metric-sub">Recorded expenses</div></div>
+<div class="card"><div class="metric-label">Net cash position</div><div class="metric">${money(net)}</div><div class="metric-sub">${net>=0?'Positive':'Needs attention'} · collected minus expenses</div></div>
+</div>
+<div class="grid2"><div class="card"><h3>Revenue overview</h3><div class="bar-chart">${vals.map((x,i)=>`<div class="bar-col"><div class="bar" title="${money(x)}" style="height:${Math.max(4,x/max*145)}px"></div><small>${months[i]}</small></div>`).join('')}</div><p class="muted" style="font-size:11px;margin-bottom:0">Illustrative monthly history; current figures use your recorded paid invoices.</p></div>
+<div class="card"><h3>Business snapshot</h3><div class="activity">
+<div class="activity-row"><span class="muted">Customers</span><b>${db.customers.length}</b></div>
+<div class="activity-row"><span class="muted">Total invoices</span><b>${db.invoices.length}</b></div>
+<div class="activity-row"><span class="muted">Paid invoices</span><b>${db.invoices.filter(x=>x.status==='Paid').length}</b></div>
+<div class="activity-row"><span class="muted">Overdue invoices</span><b class="negative">${db.invoices.filter(x=>x.status==='Overdue'||(x.status!=='Paid'&&x.due<today())).length}</b></div>
+</div></div></div>
+<div class="card" style="margin-top:16px"><h3>Recent invoices</h3>${tableInvoices(db.invoices.slice(-4).reverse())}</div>`;
+}
+function customers(){return `${head('Customers','Manage your customer relationships.','<button onclick="openCustomer()">＋ Add customer</button>')}<div class="toolbar"><input id="customerSearch" placeholder="Search customers..." oninput="filterTable('customerSearch','customerTable')"></div><div class="table-wrap" id="customerTable">${tableCustomers(db.customers)}</div>`}
+function tableCustomers(rows){return rows.length?`<table><thead><tr><th>Customer</th><th>Business</th><th>Phone</th><th>Email</th><th>Actions</th></tr></thead><tbody>${rows.map(c=>`<tr><td><b>${esc(c.name)}</b><br><small class="muted">${c.id}</small></td><td>${esc(c.business||'—')}</td><td>${esc(c.phone||'—')}</td><td>${esc(c.email||'—')}</td><td><button class="ghost" onclick="deleteItem('customers','${c.id}')">Delete</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">No customers yet. Add your first customer.</div>'}
+function invoices(){return `${head('Invoices','Create, track and manage customer invoices.','<button onclick="openInvoice()">＋ Create invoice</button>')}<div class="toolbar"><input id="invoiceSearch" placeholder="Search invoice or customer..." oninput="filterTable('invoiceSearch','invoiceTable')"></div><div class="table-wrap" id="invoiceTable">${tableInvoices(db.invoices)}</div>`}
+function tableInvoices(rows){return rows.length?`<table><thead><tr><th>Invoice</th><th>Customer</th><th>Issue date</th><th>Due date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows.map(i=>`<tr><td><b>${i.id}</b><br><small class="muted">${esc(i.items||'')}</small></td><td>${esc(i.customer)}</td><td>${i.date}</td><td>${i.due}</td><td><b>${money(i.amount)}</b></td><td><span class="pill ${i.status.toLowerCase()}">${i.status}</span></td><td><button class="secondary" onclick="markPaid('${i.id}')">Mark paid</button> <button class="ghost" onclick="invoicePDF('${i.id}')">PDF</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">No invoices yet. Create your first invoice.</div>'}
+function payments(){return `${head('Payments','Track money received and outstanding balances.')}<div class="cards"><div class="card"><div class="metric-label">Collected</div><div class="metric">${money(sum(db.payments))}</div></div><div class="card"><div class="metric-label">Outstanding</div><div class="metric">${money(pending())}</div></div><div class="card"><div class="metric-label">Payment records</div><div class="metric">${db.payments.length}</div></div><div class="card"><div class="metric-label">Overdue invoices</div><div class="metric">${db.invoices.filter(i=>i.status!=='Paid'&&(i.status==='Overdue'||i.due<today())).length}</div></div></div><div class="table-wrap">${db.payments.length?`<table><thead><tr><th>Payment ID</th><th>Invoice</th><th>Customer</th><th>Date</th><th>Amount</th></tr></thead><tbody>${db.payments.map(p=>`<tr><td>${p.id}</td><td>${p.invoice}</td><td>${esc(p.customer)}</td><td>${p.date}</td><td class="positive">${money(p.amount)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">No payment records.</div>'}</div>`}
+function expensePage(){return `${head('Expenses','Record and review business spending.','<button onclick="openExpense()">＋ Add expense</button>')}<div class="cards"><div class="card"><div class="metric-label">Total expenses</div><div class="metric">${money(expenses())}</div></div><div class="card"><div class="metric-label">Expense entries</div><div class="metric">${db.expenses.length}</div></div></div><div class="table-wrap">${db.expenses.length?`<table><thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th>Action</th></tr></thead><tbody>${db.expenses.map(x=>`<tr><td>${x.date}</td><td>${esc(x.category)}</td><td>${esc(x.description)}</td><td><b>${money(x.amount)}</b></td><td><button class="ghost" onclick="deleteItem('expenses','${x.id}')">Delete</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">No expenses recorded.</div>'}</div>`}
+function assistant(){return `${head('AI Business Assistant','Ask questions about your business and get practical suggestions.')}<div class="notice"><b>Demo AI mode:</b> This assistant uses your saved business totals and rule-based guidance. Connect a Gemini API through a secure backend to enable real generative AI responses.</div><div class="card"><div class="chatbox" id="chat"><div class="bubble bot">Hi! I'm your BizPilot assistant. I can summarize your business numbers and suggest next steps. Try asking: “How is my business doing?”</div></div><div class="chatinput"><input id="chatInput" placeholder="Ask about revenue, expenses or payments..." onkeydown="if(event.key==='Enter')askAI()"><button onclick="askAI()">Send</button></div></div>`}
+function forecast(){let r=paid(),e=expenses(),out=pending();let projection=r-e+out*.5;return `${head('Cash Flow Forecast','A simple planning estimate based on your current records.')}<div class="notice">This is an illustrative estimate, not a guaranteed prediction. It assumes 50% of outstanding invoices will be collected and current expenses remain similar.</div><div class="cards"><div class="card"><div class="metric-label">Current collected revenue</div><div class="metric">${money(r)}</div></div><div class="card"><div class="metric-label">Outstanding invoices</div><div class="metric">${money(out)}</div></div><div class="card"><div class="metric-label">Recorded expenses</div><div class="metric">${money(e)}</div></div><div class="card"><div class="metric-label">Estimated position</div><div class="metric">${money(projection)}</div></div></div><div class="card"><h3>Suggested actions</h3><ul style="line-height:2;color:#4b5563"><li>Follow up on ${money(out)} in unpaid invoices.</li><li>Review recurring expenses and identify costs you can reduce.</li><li>Update invoice statuses when payments arrive.</li><li>Record transactions regularly to improve future estimates.</li></ul></div>`}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function filterTable(inputId,tableId){let q=document.getElementById(inputId).value.toLowerCase();let rows=[...document.querySelectorAll('#'+tableId+' tbody tr')];rows.forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none')}
+function openModal(title,body){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function openCustomer(){openModal('Add customer',`<form onsubmit="addCustomer(event)"><div class="formgrid"><div class="formgroup"><label>Full name *</label><input name="name" required></div><div class="formgroup"><label>Business name</label><input name="business"></div><div class="formgroup"><label>Phone</label><input name="phone" inputmode="tel"></div><div class="formgroup"><label>Email</label><input name="email" type="email"></div></div><div class="actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button>Add customer</button></div></form>`)}
+function addCustomer(e){e.preventDefault();let f=new FormData(e.target);db.customers.push({id:'C'+uid(),name:f.get('name'),business:f.get('business'),phone:f.get('phone'),email:f.get('email')});save();closeModal();render()}
+function openInvoice(){let opts=db.customers.map(c=>`<option>${esc(c.name)}</option>`).join('');openModal('Create invoice',`<form onsubmit="addInvoice(event)"><div class="formgrid"><div class="formgroup"><label>Customer *</label><select name="customer" required>${opts||'<option value="">Add a customer first</option>'}</select></div><div class="formgroup"><label>Service / item *</label><input name="items" required placeholder="e.g. Website design"></div><div class="formgroup"><label>Invoice date *</label><input name="date" type="date" value="${today()}" required></div><div class="formgroup"><label>Due date *</label><input name="due" type="date" required></div><div class="formgroup full"><label>Amount (₹) *</label><input name="amount" type="number" min="1" step="0.01" required></div></div><div class="actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button ${opts?'':'disabled'}>Create invoice</button></div></form>`)}
+function addInvoice(e){e.preventDefault();let f=new FormData(e.target);db.invoices.push({id:'INV-'+uid(),customer:f.get('customer'),items:f.get('items'),date:f.get('date'),due:f.get('due'),amount:Number(f.get('amount')),status:'Pending'});save();closeModal();render()}
+function markPaid(id){let i=db.invoices.find(x=>x.id===id);if(!i||i.status==='Paid')return;i.status='Paid';db.payments.push({id:'PAY-'+uid(),invoice:i.id,customer:i.customer,date:today(),amount:i.amount});save();render()}
+function openExpense(){openModal('Add expense',`<form onsubmit="addExpense(event)"><div class="formgrid"><div class="formgroup"><label>Date</label><input name="date" type="date" value="${today()}" required></div><div class="formgroup"><label>Category</label><select name="category"><option>Rent</option><option>Software</option><option>Travel</option><option>Supplies</option><option>Marketing</option><option>Other</option></select></div><div class="formgroup full"><label>Description</label><input name="description" required></div><div class="formgroup full"><label>Amount (₹)</label><input name="amount" type="number" min="1" required></div></div><div class="actions"><button type="button" class="ghost" onclick="closeModal()">Cancel</button><button>Add expense</button></div></form>`)}
+function addExpense(e){e.preventDefault();let f=new FormData(e.target);db.expenses.push({id:'EX-'+uid(),date:f.get('date'),category:f.get('category'),description:f.get('description'),amount:Number(f.get('amount'))});save();closeModal();render()}
+function deleteItem(type,id){if(!confirm('Delete this record?'))return;db[type]=db[type].filter(x=>x.id!==id);save();render()}
+function invoicePDF(id){let i=db.invoices.find(x=>x.id===id);if(!i)return;let w=window.open('','_blank');if(!w){alert('Allow pop-ups to print the invoice.');return}w.document.write(`<html><head><title>${i.id}</title><style>body{font-family:Arial;padding:45px;color:#182033}h1{color:#4f46e5}table{width:100%;border-collapse:collapse;margin-top:30px}td{padding:14px;border-bottom:1px solid #ddd}.total{text-align:right;font-size:22px;font-weight:bold;margin-top:25px}</style></head><body><h1>BizPilot AI</h1><h2>INVOICE</h2><p><b>${i.id}</b></p><p>Bill to: ${esc(i.customer)}</p><p>Issue date: ${i.date} &nbsp; Due date: ${i.due}</p><table><tr><td>Description</td><td>Amount</td></tr><tr><td>${esc(i.items)}</td><td>${money(i.amount)}</td></tr></table><div class="total">Total: ${money(i.amount)}</div><p>Status: ${i.status}</p><p>Thank you for your business.</p><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+function askAI(){let input=document.getElementById('chatInput'),q=input.value.trim();if(!q)return;let chat=document.getElementById('chat');chat.innerHTML+=`<div class="bubble user">${esc(q)}</div>`;let answer=aiAnswer(q);chat.innerHTML+=`<div class="bubble bot">${answer}</div>`;input.value='';chat.scrollTop=chat.scrollHeight}
+function aiAnswer(q){q=q.toLowerCase();let rev=paid(),exp=expenses(),out=pending(),profit=rev-exp;
+if(q.includes('how')||q.includes('doing')||q.includes('summary')||q.includes('business'))return `Your recorded paid revenue is <b>${money(rev)}</b>, recorded expenses are <b>${money(exp)}</b>, and outstanding invoices total <b>${money(out)}</b>. Your simple cash position (revenue minus recorded expenses) is <b>${money(profit)}</b>. ${out>0?'Prioritize following up on unpaid invoices.':'Keep recording invoices and expenses regularly.'}`;
+if(q.includes('profit')||q.includes('expense')||q.includes('reduce'))return `Your recorded expenses total <b>${money(exp)}</b>. Review recurring subscriptions, compare supplier prices, and separate essential costs from optional spending. Your current simple cash position is <b>${money(profit)}</b>.`;
+if(q.includes('payment')||q.includes('unpaid')||q.includes('invoice'))return `You have <b>${money(out)}</b> outstanding across unpaid invoices. Send polite reminders with invoice numbers and due dates, and update each invoice after payment is received.`;
+if(q.includes('revenue')||q.includes('income'))return `Your collected revenue from paid invoices is <b>${money(rev)}</b>. Consider reviewing which services generate the most revenue and following up on outstanding invoices (${money(out)}).`;
+return `I can help with revenue, expenses, profit, invoices and payment follow-ups. Your current collected revenue is <b>${money(rev)}</b>, expenses are <b>${money(exp)}</b>, and outstanding payments are <b>${money(out)}</b>.`}
+render();
+</script>
+</body>
+</html>
